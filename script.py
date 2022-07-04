@@ -75,7 +75,7 @@ def random_article():
         'https://dev.to/api/articles', params={'top': 1}).json())
     article = generate_embed(article['title'], article['description'], article['url'], 0x5568FA,
                              article['user']['name'], article['user']['profile_image'], article['social_image'], f'❤️ {article["public_reactions_count"]} reactions . Published on {article["readable_publish_date"]}', [{'name': 'Tags', 'value': article['tags'], 'inline': False}])
-    post(WEBHOOK_URL, article)
+    post(WEBHOOK_URL, json=article)
 
 
 def main():

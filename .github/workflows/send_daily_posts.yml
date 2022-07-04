@@ -1,0 +1,26 @@
+name: Send Daily Posts
+on:
+  push:
+    branches:
+      - main
+  schedule:
+    - cron: "0 0 */1 * *"
+jobs:
+  cron:
+    runs-on: ubuntu-latest
+    steps:
+      - name: setup repo
+        uses: actions/checkout@v2
+
+      - name: setup python
+        uses: actions/setup-python@v2
+
+      - name: install python packages
+        run: |
+          pip install requests
+      - name: Run Script
+        env:
+          WEBHOOK_NEWS: ${{ secrets.WEBHOOK_NEWS }}
+          WEBHOOK_MEME: ${{ secrets.WEBHOOK_MEME }}
+          WEBHOOK_QUOTE: ${{ secrets.WEBHOOK_QUOTE }}
+        run: python script.py
